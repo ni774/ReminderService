@@ -1,6 +1,6 @@
 const { transporter } = require('../config/emailConfig');
 
-const sendBasicEmail = (mailFrom, mailTo, mailSubject, mailbody) => {
+const sendBasicEmail = async (mailFrom, mailTo, mailSubject, mailbody) => {
     return new Promise((resolve, reject) => {
         transporter.sendMail({
             from: mailFrom,
