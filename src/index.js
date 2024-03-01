@@ -5,14 +5,20 @@ const cron = require('node-cron');
 const {PORT} = require('./config/serverConfig');
 
 const { sendBasicEmail } = require('./services/email-service');
+const TicketController = require('./controller/ticket-controller');
+
+const jobs = require('./utils/job');
 
 const setupAndStartServer = () => {
     const app = express();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    app.post('/api/v1/tickets', TicketController.create);
+    app.get('/api/v1/tickets', TicketController.get);
     app.listen(PORT, ()=>{
         console.log(`server is started at port ${PORT}`);
+        jobs();
 
         // sendBasicEmail(
         //     'gnikhil556@gmail.com',
