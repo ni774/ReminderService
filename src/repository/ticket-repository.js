@@ -26,8 +26,9 @@ class TicketRepository {
         try {
             const tickets = await NotificationTicket.findAll({
                 where: {
-                    status: filter.status,
+                    status: filter.status, // status is pending or success or failed
                     notificationTime: {
+                        //get all pending notifications which time is less than current time
                         [Op.lte]: new Date()
                     }
                 }

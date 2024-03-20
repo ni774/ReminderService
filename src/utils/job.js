@@ -11,6 +11,8 @@ const { transporter } = require('../config/emailConfig');
 
 const setupJobs =  () => {
     cron.schedule('*/2 * * * *', async () => {
+        // get all pending emails from database
+        // and send one by one email and update the status
         const response = await emailService.fetchPendingEmail();
         response.forEach(element => {
             transporter.sendMail({
